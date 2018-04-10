@@ -1,0 +1,50 @@
+=====================================
+        Configuring Samba
+=====================================
+
+First of all, you should install samba cliente
+>> sudo apt-get install samba
+
+After that, you need to create a user on your linux desktop to acess the shared folder
+Note: you also will be asked to create a password
+>> sudo adduser --shell /bin/false <user-name> 
+
+Now, you should add the created user to samba
+Note: user the same passwaord used before
+>> smbpasswd -a <user-name>
+
+Now, it is necessary to create the directory that you want to share
+>> mkdir <desired-dir>
+
+Configuring samb.conf to share the desired files/folders
+>> sudo vi /etc/samba/smb.conf
+
+Creating the necessary configurations to enable external acess to the desired file/folder
+>> You need to go to the end of the file and add the following:
+>>  [<folder_name>] 
+>>  path = /home/<user_name>/<folder_name>
+>>  available = yes
+>>  valid users = <created_user_name>
+>>  read only = no
+>>  browsable = yes
+>>  public = yes
+>>  writable = yes
+
+To add write acess to the folder/file, it is necessary to do the following
+>> chmod 777 <folder_name>
+
+Finally, you sould restart samba cliente
+>> sudo service smbd restart
+
+=====================================
+       Accessing shared folder
+=====================================
+
+Linux
+> smb://<machine ip>/<folder_name>
+> Use the same name and password of the user created <created_user_name>
+
+Windows
+> First, create a shortcut
+> Next, add the path \\<machine ip>\<folder_name>
+> Now you are able to access the fodler
