@@ -1,0 +1,7 @@
+> In order to SDk works properly, it is necessary to install some librarys:
+    sudo apt-get install libstdc++6:i386
+    sudo apt-get install libgtk2.0-0:i386
+    sudo apt-get install dpkg-dev:i386
+
+> SDK needs gmake, but Ubuntu contains only make (same binary, different filename). gmake needs to be created as link
+    sudo ln -s /usr/bin/make /usr/bin/gmake

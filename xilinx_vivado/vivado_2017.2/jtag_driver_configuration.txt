@@ -1,0 +1,43 @@
+================================
+        VIVADO 2014.3.1
+================================
+1. Copy the `.hex` files from the Xilinx SDK installation to the `/usr/share/` directory:
+    cp SDK/2014.4/data/xicom/cable_drivers/lin64/install_script/install_drivers/linux_drivers/pcusb/*.hex /usr/share/
+
+2. Create a file named `99-xusbdfwu.rules` in the path `/etc/udev/rules.d/` with the contents:
+    ATTRS{idVendor}=="03fd", ATTRS{idProduct}=="0008", MODE="666"
+    SUBSYSTEMS=="usb", ACTION=="add", ATTRS{idVendor}=="03fd", ATTRS{idProduct}=="0007", RUN+="/sbin/fxload -v -t fx2 -I /usr/share/xusbdfwu.hex -D $tempnode"
+    SUBSYSTEMS=="usb", ACTION=="add", ATTRS{idVendor}=="03fd", ATTRS{idProduct}=="0009", RUN+="/sbin/fxload -v -t fx2 -I /usr/share/xusb_xup.hex -D $tempnode"
+    SUBSYSTEMS=="usb", ACTION=="add", ATTRS{idVendor}=="03fd", ATTRS{idProduct}=="000d", RUN+="/sbin/fxload -v -t fx2 -I /usr/share/xusb_emb.hex -D $tempnode"
+    SUBSYSTEMS=="usb", ACTION=="add", ATTRS{idVendor}=="03fd", ATTRS{idProduct}=="000f", RUN+="/sbin/fxload -v -t fx2 -I /usr/share/xusb_xlp.hex -D $tempnode"
+    SUBSYSTEMS=="usb", ACTION=="add", ATTRS{idVendor}=="03fd", ATTRS{idProduct}=="0013", RUN+="/sbin/fxload -v -t fx2 -I /usr/share/xusb_xp2.hex -D $tempnode"
+    SUBSYSTEMS=="usb", ACTION=="add", ATTRS{idVendor}=="03fd", ATTRS{idProduct}=="0015", RUN+="/sbin/fxload -v -t fx2 -I /usr/share/xusb_xse.hex -D $tempnode"
+
+3. Restart the PC and the Xilinx cable should light its status led and the Xilinx device should appear after executing the `lsusb` command (it is the `Xilinx, Inc.` device):
+    lsusb
+    Bus 001 Device 002: ID 03fd:0008 Xilinx, Inc.
+
+4. This device requires read and write capabilities to function correctly. The rules specified in the file above should have permanently enabled this. To confirm, enter:
+    ls -l /dev/bus/usb/<bus_number>/
+    ** 001 in this case
+
+5. Sometimes it is necessary to open the hardware manager on vivado tool and try to connect to the board to the
+status led of the cable light.
+    > Your first try to configure the FPGA can fail, but the second one will be ok
+
+================================
+        VIVADO 2017.2
+================================
+This vivado version already comes with the necessary drivers to configure the JTAG, but it is no intalled during the
+tool installation process, you have to install it later.
+
+1. Go to the Xilinx installation directory:
+    > /opt/Xilinx/Vivado/2017.2/data/xicom/cable_drivers/lin64/install_script/install_drivers
+
+2. After that, run install_drivers.sh script
+    > You will have to make it an executable: chmod +x 755 install_drivers.sh
+    > Run the script as root
+
+3. Finally, the driver is ready for use.
+   **NOTE: Sometimes it is necessary to open the hardware manager on vivado tool and try to connect to the board to the status led turns on.
+        > Your first try to configure the FPGA can fail, but the second one will be ok.

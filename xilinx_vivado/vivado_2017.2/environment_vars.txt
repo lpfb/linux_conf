@@ -1,0 +1,17 @@
+To configure vivado environment variables it is necessary to do the following steps:
+
+> navegating to the home folder
+cd ~
+
+> editing the .bashrc file
+vim .bashrc
+
+> Adding the below line to the end of the file
+* The first line configures the variables to use vivado (including invoking it from the terminal)
+* The secound line configures the SDK variables
+* The last one configures the license path
+
+source  /opt/Xilinx/Vivado/2014.3.1/settings64.sh
+source  /opt/Xilinx/SDK/2014.3.1/settings64.sh
+export XILINXD_LICENSE_FILE=2100@sovi.cpqd.com.br
+

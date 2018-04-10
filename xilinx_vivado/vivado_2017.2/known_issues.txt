@@ -1,0 +1,4 @@
+>> Problems with XML files
+    If the tool report an error similar to this: set_property on xxx xml file, it is probably a problem relatade to the locale config. In order to solve this it is necessary to configure locale with en_US.UTF-8 in all it`s attributs
+    To see what is the current configuration, insert the following command into the terminal:
+    $locale
