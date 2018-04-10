@@ -1,5 +1,3 @@
-Just testing
-
 To configure vivado environment variables it is necessary to do the following steps:
 
 > navegating to the home folder
