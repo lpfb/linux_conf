@@ -1,0 +1,11 @@
+>Compression syntax:
+- tar -czvf <compressed file anem>.tar.gz <directory/file name>
+
+>>>Ex: Compressing an entire directory (microblaze_test.sdk):
+    * tar -czvf sdk_files.tar.gz microblaze_test.sdk
+
+> Decompression syntax:
+    * tar -xzvf <tar ball name>.tar.gz
+
+>>>Ex: Decompressing a file/directory:
+    * tar -xzvf <tar ball name>.tar.gz
