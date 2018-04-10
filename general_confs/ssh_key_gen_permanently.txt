@@ -1,0 +1,7 @@
+> Generates the necessary keys
+* During the generatio process, you will be asked to add some extra information. It is possible to skip this pressing enter
+    ssh-keygen -t rsa
+
+> Adding the key to the other machine key list
+    ssh-copy-id <user>@<server nome or IP>
+

@@ -1,0 +1,10 @@
+>> Showing the configuration preferences of your remote desktop
+Note: sometimes it's necessary to use sudo to configure vino preferences
+vino-preferences
+
+>> Enabling VNC server
+gsettings set org.gnome.Vino enabled true
+
+>> On Ubuntu 16.04 it is also necessary to performe the following step
+/usr/lib/vino/vino-server
+
