@@ -1,0 +1,21 @@
+Procedure to emulate an ISO image:
+
+# First of all, it is necessary to create the folder where the image will be mounted
+sudo mkdir /mnt/<iso folder name>
+
+# Now it is possible to mount the ISO image usgin the following command
+sudo mount -t iso9660 <iso name>.iso /mnt/<iso folder name> -o loop
+
+# After the mouting process you can access the mounted ISO e execute the installation process
+# NOTE: it is not possible to visualize the mounted dir in the graṕhical interface
+cd /mnt/<iso folder name>
+
+# Unmounting an ISO mounted
+sudo umount /mnt/<iso folder name>
+
+# Finally, if you does not need to use the <iso folder name> anymore, you can remove it:
+sudo rm -rf /mnt/<iso folder name>
+
+# IMPORTANT:
+# If your program needs more than one ISO to install, you need to insert the first one, execute the installer and than, when the installer asks you to insert the secound one, you need to umount the first image, mount the other one and than go ahead with the installation process.
+
