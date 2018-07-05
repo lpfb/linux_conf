@@ -1,0 +1,28 @@
+Reference link: https://gladdy.github.io/2017/03/18/Altera-udev.html
+
+=======================================
+Configuration process:
+
+
+0- Before starting the JTAG programmer in Quartus, the dmesg entries should look like this:
+	[27810.071135] usb 1-1.2: new high-speed USB device number 18 using ehci-pci
+	[27810.163900] usb 1-1.2: New USB device found, idVendor=09fb, idProduct=6810
+	[27810.163905] usb 1-1.2: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+
+1- Figure out where the USB device lives on the filesystem. In UNIX, everything is a file, including USB devices. Go to /dev/bus/usb, where you will find several folders. The first level indicates the (internal) USB hub, the second level the device number. As seen before, my device has number 25, therefore there is only 1 candidate: /dev/bus/usb/001/025.
+
+2- Set read-write permissions for all users on that file, eg sudo chmod 666 /dev/bus/usb/001/025. This has to be done every time you plug in your FPGA, which can get very tedious.
+
+3- Luckily, the linux kernel devs have thought of this and added a feature called udev rules. These are commands that are run, as root, when a USB device of a specific signature connects. Create the file /etc/udev/rules.d/52-usbblaster.rules. Any number between 0 and 100 and name will do but usually the high and low 10 are reserved for system purposes. Do make sure it adheres to the format {number}-{name}.rules. In this file create one udev entry. Mine is shown below. 
+
+# The USB Blaster UDEV entry in /etc/udev/rules.d/52-usbblaster.rules
+SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6010", MODE="0666"
+SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6810", MODE="0666"
+
+Ensure that the idVendor and idProduct actually match the codes displayed in your dmesg output. The rest of the entry is self-explanatory. Finally, restart the udev service by sudo service udev restart, forcing it to reload the udev rules.
+
+4- Check whether your udev rules has worked. Replug your USB connection and verify that your device now has read and write permissions for all users, eg:
+
+
+
+

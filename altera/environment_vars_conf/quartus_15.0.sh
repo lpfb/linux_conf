@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export ALTERAPATH="altera/15.0"
+export ALTERAPATH="/home/lpfb/altera/15.0"
 export ALTERAOCLSDKROOT="${ALTERAPATH}/hld"
 export QUARTUS_ROOTDIR=${ALTERAPATH}/quartus
 export QUARTUS_ROOTDIR_OVERRIDE="$QUARTUS_ROOTDIR"
